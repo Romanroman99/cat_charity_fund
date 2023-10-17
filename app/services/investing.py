@@ -16,7 +16,9 @@ async def check_unfull_project(
     2. Есть ли проекты, нуждающиеся в инвестировании
     """
     unfully_invested = await session.execute(
-        select(db_model).where(db_model.fully_invested == 0).order_by(db_model.create_date)
+        select(db_model).where(
+            db_model.fully_invested == 0
+        ).order_by(db_model.create_date)
     )
     unfully_invested = unfully_invested.scalars().all()
     return unfully_invested
@@ -24,7 +26,7 @@ async def check_unfull_project(
 
 async def investing(
     obj_in: AbstractBase,  # проект/донат (создание)
-    db_model: AbstractBase,  # модель из бд Donation(при сощдании проекта) или CreateProject(При донате)
+    db_model: AbstractBase,  # модель из бд Donation(при создании проекта) или CreateProject(При донате)
     session: AsyncSession
 ) -> AbstractBase:
     unfully_invested = await check_unfull_project(db_model, session)

@@ -9,6 +9,9 @@ from app.models import Donation, User
 
 class CRUDDonation(CRUDBase):
     async def get_user(self, user: User, session: AsyncSession) -> List[Donation]:
+        '''
+        Получает все пожертвования, сделанные пользователем.
+        '''
         dontions = await session.execute(
             select(Donation).where(Donation.user_id == user.id)
         )

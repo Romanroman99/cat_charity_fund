@@ -14,6 +14,9 @@ class CRUDCharityProject(CRUDBase):
         project_name: str,
         session: AsyncSession,
     ) -> Optional[int]:
+        '''
+        Получает идентификатор проекта по его имени.
+        '''
         db_project_id = await session.execute(
             select(CharityProject.id).where(CharityProject.name == project_name)
         )
@@ -24,6 +27,9 @@ class CRUDCharityProject(CRUDBase):
         project_id: int,
         session: AsyncSession,
     ) -> Optional[CharityProject]:
+        '''
+        Получает проект по его идентификатору.
+        '''
         db_project = await session.execute(
             select(CharityProject).where(CharityProject.id == project_id)
         )
